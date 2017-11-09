@@ -5,8 +5,8 @@ const repoThings = new RepoThings();
 const userThings = new UserThings();
 
 // change this in order to use different data service
-//let thingsService = userThings;
-let thingsService = repoThings;
+let thingsService = userThings;
+//let thingsService = repoThings;
 
 thingsService.getThings((things) => {
     things.forEach((thing) => {
