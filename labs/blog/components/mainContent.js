@@ -1,14 +1,15 @@
 import React from "react";
+
 import Post from "./post";
-import data from "../data";
+import { posts } from "../data";
 
 const MainContent = function () {
     return (
-        <div>
-            {data.posts.map((item) => {
-                return <Post post={item} key={item.id} />;
+        <main>
+            {posts.map(post => {
+                return <Post post={post} key={post.id} />;
             })}
-        </div>
+        </main>
     );
 };
 
