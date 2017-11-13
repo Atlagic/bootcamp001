@@ -1,14 +1,16 @@
 import React from "react";
-import data from "../data";
+import Header from "./header";
+import Footer from "./footer";
+import MainContent from "./mainContent";
 
 class App extends React.Component {
     render() {
         return (
             <div>
-                <h4>Belgrade Institute of Technology</h4>
-                <h1>Hello from react!</h1>
+                <Header />
+                <MainContent />
+                <Footer />
             </div>
-            
         );
     }
 }
