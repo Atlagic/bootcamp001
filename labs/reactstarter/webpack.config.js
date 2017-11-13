@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./app.js",
+    entry: "./index.js",
     output: {
         filename: "bundle.js"
     },
@@ -10,11 +10,11 @@ module.exports = {
                 exclude: /node_modules/,
                 loaders: ["babel-loader"]
             },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loaders: ["eslint-loader"]
-            }
+            // {
+            //     test: /\.js$/,
+            //     exclude: /node_modules/,
+            //     loaders: ["eslint-loader"]
+            // }
         ]
     }
 };
