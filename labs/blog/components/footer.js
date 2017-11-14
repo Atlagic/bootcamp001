@@ -1,8 +1,10 @@
 import React from "react";
 
-const Footer = function(){
+const Footer = function () {
     return (
-        <span>Copyright (C) 2017 by BIT</span>
+        <footer>
+            <span>Copyright (C) 2017 by BIT</span>
+        </footer>
     );
 };
 
