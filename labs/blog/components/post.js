@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Post = function (props) {
     return (
@@ -8,6 +9,10 @@ const Post = function (props) {
             <hr/>
         </div>
     );
+};
+
+Post.propTypes = {
+    post: PropTypes.object.isRequired
 };
 
 export default Post;
