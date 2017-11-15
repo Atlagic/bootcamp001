@@ -1,7 +1,12 @@
 module.exports = {
-    entry: "./index.js",
+    entry: __dirname + "/src/index",
+    target: "web",
     output: {
-        filename: "bundle.js"
+        filename: "bundle.js",
+        publicPath: "/"
+    },
+    devServer: {
+        contentBase: __dirname + "/src"
     },
     module: {
         loaders: [
@@ -10,12 +15,10 @@ module.exports = {
                 exclude: /node_modules/,
                 loaders: ["babel-loader"]
             },
-            // {
-            //     test: /\.js$/,
-            //     exclude: /node_modules/,
-            //     loaders: ["eslint-loader"]
-            // }
+            {
+                test: /(\.css)$/,
+                loaders: ["style", "css"]
+            },
         ]
     }
 };
-  
