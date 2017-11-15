@@ -7,10 +7,11 @@ class PostDetailsPage extends React.Component {
         super(props);
 
         this.state = { posts: undefined };
+        this.loadData.bind(this);
     }
 
-    componentDidMount() {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${this.props.match.params.id}`)
+    loadData(id) {
+        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
             .then((response) => {
                 console.log(response);
                 return response.json();
@@ -35,6 +36,14 @@ class PostDetailsPage extends React.Component {
             });
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.loadData(nextProps.match.params.id);
+    }
+
+    componentDidMount(){
+        this.loadData(this.props.match.params.id);
+    }
+
     render() {
 
         if (!this.state.post) {
@@ -45,7 +54,7 @@ class PostDetailsPage extends React.Component {
             <div>
                 <div>
                     <h1>{this.state.post.title}</h1>
-                    <h2>{ this.state.user ? `by ${this.state.user.name}` : "getting author name..."}</h2>
+                    <h2>{this.state.user ? `by ${this.state.user.name}` : "getting author name..."}</h2>
                     <p>{this.state.post.body}</p>
                     <hr />
                     <AuthorPosts userId={this.state.post.userId} />

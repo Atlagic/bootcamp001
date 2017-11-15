@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 class AuthorPosts extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class AuthorPosts extends React.Component {
                 <div>
                     {this.state.posts.slice(0, 3)
                         .map((post) =>
-                            <h1 key={post.id}>{post.title}</h1>
+                            <Link to={"/post/" + post.id}><h1 key={post.id}>{post.title}</h1></Link>
                         )}
                 </div>
             </div>
