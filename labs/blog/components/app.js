@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "./header";
 import Footer from "./footer";
-import MainContent from "./mainContent";
+import PostListPage from "./postListPage";
+import PostDetailsPage from "./postDetailsPage";
 import About from "./about";
 
 import {Switch, Route} from "react-router-dom";
@@ -16,8 +17,9 @@ class App extends React.Component {
             <div>
                 <Header />
                 <Switch>
-                    <Route exact path='/' component={MainContent} />
-                    <Route path='/' component={About} />
+                    <Route exact path='/' component={PostListPage} />
+                    <Route path='/post/:id' component={PostDetailsPage} />
+                    <Route path='/about' component={About} />
                 </Switch>
                 <Footer />
             </div>

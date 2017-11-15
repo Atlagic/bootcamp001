@@ -1,0 +1,58 @@
+import React from "react";
+
+import AuthorPosts from "./authorPosts";
+
+class PostDetailsPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { posts: undefined };
+    }
+
+    componentDidMount() {
+        fetch(`https://jsonplaceholder.typicode.com/posts/${this.props.match.params.id}`)
+            .then((response) => {
+                console.log(response);
+                return response.json();
+            })
+            .then((post) => {
+                console.log(post);
+                this.setState({
+                    post: post
+                });
+
+                fetch(`https://jsonplaceholder.typicode.com/users/${post.userId}`)
+                    .then((response) => {
+                        console.log(response);
+                        return response.json();
+                    })
+                    .then((user) => {
+                        console.log(user);
+                        this.setState({
+                            user: user
+                        });
+                    });
+            });
+    }
+
+    render() {
+
+        if (!this.state.post) {
+            return <p>No posts</p>;
+        }
+
+        return (
+            <div>
+                <div>
+                    <h1>{this.state.post.title}</h1>
+                    <h2>{ this.state.user ? `by ${this.state.user.name}` : "getting author name..."}</h2>
+                    <p>{this.state.post.body}</p>
+                    <hr />
+                    <AuthorPosts userId={this.state.post.userId} />
+                </div>
+            </div>
+        );
+    }
+}
+
+export default PostDetailsPage;

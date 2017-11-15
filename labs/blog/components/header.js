@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const Header = function () {
     return (
         <div>
-            <h1>Blog</h1>
+            <h1>RND Blog</h1>
             <Timer interval="1000" />
             <nav>
                 <ul>

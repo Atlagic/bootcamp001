@@ -1,8 +1,6 @@
 import React from "react";
 
-import Post from "./post";
-
-class MainContent extends React.Component {
+class AuthorPosts extends React.Component {
     constructor(props) {
         super(props);
 
@@ -10,13 +8,11 @@ class MainContent extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://jsonplaceholder.typicode.com/posts")
+        fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.props.userId}`)
             .then((response) => {
-                console.log(response);
                 return response.json();
             })
             .then((posts) => {
-                console.log(posts);
                 this.setState({
                     posts: posts
                 });
@@ -31,12 +27,15 @@ class MainContent extends React.Component {
 
         return (
             <div>
-                {this.state.posts.map((item) => {
-                    return <Post post={item} key={item.id} />;
-                })}
+                <div>
+                    {this.state.posts.slice(0, 3)
+                        .map((post) =>
+                            <h1 key={post.id}>{post.title}</h1>
+                        )}
+                </div>
             </div>
         );
     }
 }
 
-export default MainContent;
+export default AuthorPosts;
