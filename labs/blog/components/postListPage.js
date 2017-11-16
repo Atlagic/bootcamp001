@@ -1,36 +1,56 @@
 import React from "react";
 
 import PostPreview from "./postPreview";
+import Search from "./search";
 
 class PostListPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { posts: [] };
+        this.state = { posts: [], allPosts: [] };
+
+        this.searchHandler = this.searchHandler.bind(this);
     }
 
     componentDidMount() {
         fetch("https://jsonplaceholder.typicode.com/posts")
             .then((response) => {
-                console.log(response);
                 return response.json();
             })
             .then((posts) => {
-                console.log(posts);
                 this.setState({
-                    posts: posts
+                    posts: posts,
+                    allPosts: posts
                 });
             });
     }
 
-    render() {
+    searchHandler(searchString){
+        console.log(searchString);
 
-        if (this.state.posts.length === 0) {
-            return <p>No posts</p>;
+        let currentList = this.state.allPosts;
+
+        if (searchString === ""){
+            this.setState({
+                posts: currentList
+            });
+
+            return;
         }
 
+        let filteredList = currentList.filter((item)=>{
+            return item.title.includes(searchString);
+        });
+
+        this.setState({
+            posts : filteredList
+        });
+    }
+
+    render() {
         return (
             <div>
+                <Search onSearchRequested={this.searchHandler} instant={true} />
                 {this.state.posts.map((item) => {
                     return <PostPreview post={item} key={item.id} />;
                 })}

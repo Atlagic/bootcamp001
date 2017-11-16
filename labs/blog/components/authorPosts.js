@@ -31,7 +31,7 @@ class AuthorPosts extends React.Component {
                 <div>
                     {this.state.posts.slice(0, 3)
                         .map((post) =>
-                            <Link to={"/post/" + post.id}><h1 key={post.id}>{post.title}</h1></Link>
+                            <Link to={`/post/${post.id}`} key={post.id}><h1>{post.title}</h1></Link>
                         )}
                 </div>
             </div>

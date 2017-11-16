@@ -13,22 +13,21 @@ class PostDetailsPage extends React.Component {
     loadData(id) {
         fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
             .then((response) => {
-                console.log(response);
                 return response.json();
             })
             .then((post) => {
-                console.log(post);
                 this.setState({
                     post: post
                 });
 
+                return post;
+            })
+            .then((post) => {
                 fetch(`https://jsonplaceholder.typicode.com/users/${post.userId}`)
                     .then((response) => {
-                        console.log(response);
                         return response.json();
                     })
                     .then((user) => {
-                        console.log(user);
                         this.setState({
                             user: user
                         });
@@ -40,7 +39,7 @@ class PostDetailsPage extends React.Component {
         this.loadData(nextProps.match.params.id);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.loadData(this.props.match.params.id);
     }
 

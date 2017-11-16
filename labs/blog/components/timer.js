@@ -1,24 +1,40 @@
 import React from "react";
 
-class Timer extends React.Component{
-    constructor(props){
+class Timer extends React.Component {
+    constructor(props) {
         super(props);
 
-        this.state = { mountTime: "pending..."};
+        this.state = { mountTime: "pending...", onoff: false };
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    componentDidMount(){
-        setInterval(()=>{
-            this.setState({
-                mountTime: new Date().toTimeString()
-            });
+    startTimer(){
+        return setInterval(() => {
+            if (this.state.onoff) {
+                this.setState({
+                    mountTime: new Date().toTimeString()
+                });
+                this.props.onTimeElapsed(this.state.mountTime);
+            }
         }, this.props.interval);
-
-
     }
 
-    render(){
-        return <h4>Current time: {this.state.mountTime}</h4>;
+    componentDidMount() {
+        this.timerId = this.startTimer();
+    }
+
+    handleClick() {
+        this.setState(
+            (oldState) => ({ onoff: !oldState.onoff })
+        );
+    }
+
+    render() {
+        return (
+            <div>
+                <h4>Current time: {this.state.mountTime}</h4>
+                <button onClick={this.handleClick}>{this.state.onoff ? "Stop" : "Start"}</button>
+            </div>);
     }
 }
 
