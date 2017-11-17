@@ -31,11 +31,12 @@ class Search extends React.Component {
 
     render() {
         return (
-            <div>
-                <input type="text"
+            <div className="row">
+                <input className="col s10"
+                    type="text"
                     value={this.state.searchString}
                     onChange={this.onInputChanged} />
-                <input className="btn waves-effect waves-light"
+                <input className="btn waves-effect waves-light col s2"
                     type="button"
                     value="Search"
                     onClick={this.onSearchClicked} />
