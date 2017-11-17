@@ -7,20 +7,31 @@ class PostListPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { posts: [], allPosts: [] };
+        this.state = { posts: [], allPosts: [], myPosts: [] };
 
         this.searchHandler = this.searchHandler.bind(this);
     }
 
     componentDidMount() {
+        let myPostsString = localStorage.getItem("myPosts");
+        if (myPostsString){
+            let myPosts = JSON.parse(myPostsString);
+            let allPosts = myPosts.concat(this.state.posts);
+            this.setState({
+                myPosts: myPosts,
+                allPosts: allPosts
+            });
+        }
+
         fetch("https://jsonplaceholder.typicode.com/posts")
             .then((response) => {
                 return response.json();
             })
             .then((posts) => {
+                let allPosts = this.state.myPosts.concat(posts);
                 this.setState({
-                    posts: posts,
-                    allPosts: posts
+                    posts: allPosts,
+                    allPosts: allPosts
                 });
             });
     }
