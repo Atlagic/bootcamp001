@@ -32,7 +32,7 @@ class PostsByAuthor extends React.Component {
         return (
             <div>
                 {posts.slice(0, 3).map((post) => (
-                    <Link to="#" key={post.id}>
+                    <Link to={`/posts/${post.id}`} key={post.id}>
                         <h5 >{post.title}</h5>
                     </Link>
                 )

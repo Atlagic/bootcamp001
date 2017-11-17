@@ -14,15 +14,11 @@ class PostDetails extends Component {
         };
     }
 
-    componentDidMount() {
-
-        const postId = this.props.match.params.id;
-
+    loadData(postId) {
         fetch(`${BASE_URL}/posts/${postId}`)
             .then(response => response.json())
             .then(post => {
                 this.setState({ post });
-
                 // Now we have post and from post we have userId
                 // So we can fetch user posts with userId
                 const { userId } = post;
@@ -35,6 +31,16 @@ class PostDetails extends Component {
             .catch(error => {
                 console.log("Fetching posts failed: " + error.message);
             });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const postId = nextProps.match.params.id;
+        this.loadData(postId);
+    }
+
+    componentDidMount() {
+        const postId = this.props.match.params.id;
+        this.loadData(postId);
     }
 
     render() {
