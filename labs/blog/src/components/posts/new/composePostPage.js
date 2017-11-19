@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BASE_URL } from "../../../constants";
+import { BASE_URL, LOCAL_POSTS_KEY } from "../../../constants";
 import ComposeForm from "./composeForm";
 
 class ComposePostPage extends React.Component {
@@ -15,7 +15,6 @@ class ComposePostPage extends React.Component {
     }
 
     savePost(newPost) {
-        const LOCAL_POSTS_KEY = "localPosts";
         const localPostsString = localStorage.getItem(LOCAL_POSTS_KEY);
         let myPosts = [];
 
@@ -23,7 +22,7 @@ class ComposePostPage extends React.Component {
             myPosts = JSON.parse(localPostsString);
         }
 
-        myPosts.splice(0, 0, newPost);
+        myPosts.unshift(newPost);
 
         localStorage.setItem(LOCAL_POSTS_KEY, JSON.stringify(myPosts));
     }

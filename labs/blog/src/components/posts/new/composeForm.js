@@ -4,18 +4,25 @@ class ComposeForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        this.state = this.initState();
+        this.bindEventHandlers();
+    }
+
+    initState() {
+        return {
             title: "",
             content: ""
         };
+    }
 
+    bindEventHandlers() {
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleContentChange = this.handleContentChange.bind(this);
         this.saveHandler = this.saveHandler.bind(this);
     }
 
     handleTitleChange(event) {
-        let value = event.target.value;
+        const value = event.target.value;
 
         this.setState({
             title: value
@@ -23,7 +30,7 @@ class ComposeForm extends Component {
     }
 
     handleContentChange(event) {
-        let value = event.target.value;
+        const value = event.target.value;
 
         this.setState({
             content: value
@@ -41,19 +48,31 @@ class ComposeForm extends Component {
         const { title, content } = this.state;
 
         return (
-            <div>
-                <label htmlFor="title">Title:</label><br />
-                <input type="text" value={title}
-                    name="title"
-                    onChange={this.handleTitleChange} /><br />
-
-                <label htmlFor="content">Content:</label><br />
-                <textarea value={content}
-                    name="content"
-                    onChange={this.handleContentChange} /><br />
-
-                <button onClick={this.saveHandler}>Save</button>
-            </div>);
+            <div className="row">
+                <form className="col s12" onSubmit={this.saveHandler}>
+                    <div className="row">
+                        <div className="input-field col s6">
+                            <input id="input_text" type="text" data-length="10"
+                                value={title}
+                                onChange={this.handleTitleChange} />
+                            <label htmlFor="input_text">Post title</label>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <textarea id="textarea" className="materialize-textarea" data-length="120"
+                                value={content}
+                                onChange={this.handleContentChange} />
+                            <label htmlFor="textarea">Post content</label>
+                        </div>
+                    </div>
+                    <button className="btn waves-effect waves-light" type="submit" name="action">
+                        Submit
+                        <i className="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+        );
     }
 }
 

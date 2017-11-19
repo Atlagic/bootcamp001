@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BASE_URL } from "./../../constants";
+import { BASE_URL, LOCAL_POSTS_KEY } from "./../../constants";
 import PostPreview from "./postPreview";
 import Search from "../common/search";
 
@@ -19,15 +19,41 @@ class PostList extends React.Component {
     // Life-cycle methods
 
     componentDidMount() {
-        this.fetchPosts();
+        // console.log()
+        if (this.hasLocalPosts()) {
+            this.loadPosts();
+        } else {
+            this.fetchPosts();
+        }
     }
 
     // My methods
+
+    hasLocalPosts() {
+        return !!localStorage.getItem(LOCAL_POSTS_KEY);
+    }
+
+    loadPosts() {
+        const localPosts = localStorage.getItem(LOCAL_POSTS_KEY);
+
+        if (localPosts) {
+            const allPosts = JSON.parse(localPosts);
+            console.log(allPosts);
+            this.setState({
+                allPosts,
+                filteredPosts: allPosts
+            });
+        }
+    }
 
     fetchPosts() {
         fetch(`${BASE_URL}/posts`)
             .then((response) => response.json())
             .then((posts) => {
+
+                // Save to local storage
+                localStorage.setItem(LOCAL_POSTS_KEY, JSON.stringify(posts));
+
                 this.setState({
                     allPosts: posts,
                     filteredPosts: posts
