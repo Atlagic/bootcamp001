@@ -37,7 +37,7 @@ class ComposePostPage extends React.Component {
             userId: 1,
             title: data.title,
             body: data.content,
-            id: 123
+            id: this.randomIntFromInterval(100, 1000)
         };
 
         const requestBody = JSON.stringify(postData);
@@ -47,6 +47,10 @@ class ComposePostPage extends React.Component {
             method: "POST",
             body: requestBody
         };
+    }
+
+    randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     saveRequested(formData) {
