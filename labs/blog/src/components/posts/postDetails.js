@@ -14,7 +14,7 @@ class PostDetails extends Component {
         };
     }
 
-    loadData(postId) {
+    fetchPostDetails(postId) {
         fetch(`${BASE_URL}/posts/${postId}`)
             .then(response => response.json())
             .then(post => {
@@ -35,12 +35,12 @@ class PostDetails extends Component {
 
     componentWillReceiveProps(nextProps) {
         const postId = nextProps.match.params.id;
-        this.loadData(postId);
+        this.fetchPostDetails(postId);
     }
 
     componentDidMount() {
         const postId = this.props.match.params.id;
-        this.loadData(postId);
+        this.fetchPostDetails(postId);
     }
 
     render() {

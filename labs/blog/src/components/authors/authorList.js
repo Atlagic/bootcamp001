@@ -28,11 +28,9 @@ class AuthorList extends Component {
             .then(response => {
                 const responseAuthors = response.data;
 
-                const authors = responseAuthors.map(author => {
-                    return {
-                        id: author.id,
-                        name: author.name
-                    };
+                // const authors = responseAuthors.map(({id, name}) => ({id, name}));
+                const authors = responseAuthors.map(({ id, name }) => {
+                    return { id, name };
                 });
 
                 this.setState({ authors });
@@ -48,7 +46,7 @@ class AuthorList extends Component {
         const { name, id } = author;
 
         return (
-            <Link to={`/users/${id}`} key={id}>
+            <Link to={`/authors/${id}`} key={id}>
                 <h4>{name}</h4>
             </Link>
         );
