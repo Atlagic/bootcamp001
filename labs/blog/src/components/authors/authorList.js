@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import { BASE_URL } from "../../constants";
 
@@ -15,7 +16,30 @@ class AuthorList extends Component {
         };
     }
 
+    componentDidMount() {
+        this.fetchAuthors();
+    }
+
     fetchAuthors() {
+
+        const requestURL = `${BASE_URL}/users`;
+
+        axios.get(requestURL)
+            .then(response => {
+                const responseAuthors = response.data;
+
+                const authors = responseAuthors.map(author => {
+                    return {
+                        id: author.id,
+                        name: author.name
+                    };
+                });
+
+                this.setState({ authors });
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
     }
 
