@@ -13,6 +13,12 @@ class PostsByAuthor extends React.Component {
 
         const userId = this.props.userId;
 
+        if (userId) {
+            this.fetchPostsByAuthor(userId);
+        }
+    }
+
+    fetchPostsByAuthor(userId) {
         fetch(`${BASE_URL}/posts?userId=${userId}`)
             .then((response) => response.json())
             .then((posts) => {

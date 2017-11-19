@@ -1,5 +1,5 @@
 import React from "react";
-import Timer from "./../timer";
+import Timer from "./timer";
 import Navigation from "./navigation";
 
 const Header = () => (

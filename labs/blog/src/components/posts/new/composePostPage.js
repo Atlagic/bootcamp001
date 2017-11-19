@@ -6,7 +6,10 @@ import ComposeForm from "./composeForm";
 class ComposePostPage extends React.Component {
     constructor(props) {
         super(props);
-
+        this.bindEventHandlers();
+    }
+    
+    bindEventHandlers() {
         this.saveRequested = this.saveRequested.bind(this);
     }
 
@@ -33,11 +36,13 @@ class ComposePostPage extends React.Component {
             "Content-Type": "application/json"
         };
 
+        const randomPostId = this.randomIntFromInterval(101, 1000);
+
         const postData = {
             userId: 1,
             title: data.title,
             body: data.content,
-            id: 123
+            id: randomPostId
         };
 
         const requestBody = JSON.stringify(postData);
@@ -49,11 +54,16 @@ class ComposePostPage extends React.Component {
         };
     }
 
+    randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
     saveRequested(formData) {
 
+        const requestUrl = `${BASE_URL}/posts`;
         const requestOptions = this.createRequest(formData);
 
-        fetch(`${BASE_URL}/posts`, requestOptions)
+        fetch(requestUrl, requestOptions)
             .then((response) => response.json())
             .then((post) => {
                 this.savePost(post);

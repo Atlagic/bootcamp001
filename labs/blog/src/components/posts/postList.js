@@ -47,7 +47,8 @@ class PostList extends React.Component {
     }
 
     fetchPosts() {
-        fetch(`${BASE_URL}/posts`)
+        const postsRequestUrl = `${BASE_URL}/posts`;
+        fetch(postsRequestUrl)
             .then((response) => response.json())
             .then((posts) => {
 

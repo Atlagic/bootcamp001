@@ -6,8 +6,11 @@ import AuthorPosts from "./postsByAuthor";
 class PostDetails extends Component {
     constructor(props) {
         super(props);
+        this.state = this.initState();
+    }
 
-        this.state = {
+    initState() {
+        return {
             posts: null,
             post: null,
             user: null
@@ -15,14 +18,18 @@ class PostDetails extends Component {
     }
 
     loadData(postId) {
-        fetch(`${BASE_URL}/posts/${postId}`)
+        const postRequestUrl = `${BASE_URL}/posts/${postId}`;
+
+        fetch(postRequestUrl)
             .then(response => response.json())
             .then(post => {
                 this.setState({ post });
                 // Now we have post and from post we have userId
                 // So we can fetch user posts with userId
                 const { userId } = post;
-                return fetch(`${BASE_URL}/users/${userId}`);
+                const authorRequestUrl = `${BASE_URL}/users/${userId}`;
+                
+                return fetch(authorRequestUrl);
             })
             .then(response => response.json())
             .then(user => {
